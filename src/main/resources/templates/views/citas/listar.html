@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" >
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<head th:replace="plantilla/template :: head">
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+    
+	<div class="container">		
+		<h1 th:text="${titulo}"></h1>		
+	</div>
+	
+	<div class="container">
+		
+		<a class="btn btn-primary btn-sm" th:href="@{/views/citas/create}"
+			th:text="'Nueva Cita Medica'" title="Crear Nuevo Registro">
+		</a>
+		<div class="table-resposive"> 
+		<table class="table table-hover table-sm" id="table-cita">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">IdCita</th>
+					<th scope="col">Doctor</th>
+					<th scope="col">Especialidad</th>
+					<th scope="col">Codigo Cita</th>
+					<th scope="col">Paciente</th>
+					<th scope="col">D.N.I.</th>
+					<th scope="col">Editar</th>
+					<th scope="col">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cl:${citas}">
+					<th scope="row" th:text="${cl.idcita}"></th>
+					<td th:text="${cl.doctor.nombre}"></td>
+					<td th:text="${cl.especialidad.nombre}"></td>
+					<td th:text="${cl.codigocita}"></td>
+					<td th:text="${cl.nombrepaciente}"></td>
+					<td th:text="${cl.dnipaciente}"></td>	
+					<td>
+						<a class="btn btn-success btn-sm" th:href="@{/views/citas/edit/} + ${cl.idcita}"
+							th:text="'Editar'" title="Editar Registro">
+						</a>
+					</td>	
+					<td>
+						<a class="btn btn-danger btn-sm" th:href="@{/views/citas/delete/} + ${cl.idcita}"
+							th:text="'Eliminar'" title="Eliminar Registro"
+							onclick="return confirm('Esta seguro de eliminar el registro?');">
+						</a>
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+
+</div>
+	</div>
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+<script>
+$(document).ready(function() {
+    $('#table-cita').DataTable();
+} );
+</script>
+</body>
+</html>

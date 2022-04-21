@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+
+	<div class="container">
+	
+	<div class="card bg-light">
+		<div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+		<div class="card-body">
+	
+		<form th:action="@{/views/citas/save}" th:object="${cita}" method="post">
+       <div class="form-group row">
+	      	<input type="hidden" th:field="*{idcita}">
+				<label class="col-md-2" for="doctor">Doctores :</label> 
+				<select th:field="*{doctor}" class="form-control form-control-sm col-md-6" id="doctor"> 
+					<option th:each="doctor:${doctores}"
+						th:value="${doctor.codigo}"
+						th:text="${doctor.nombre}"		
+					/>					
+				</select>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-md-2" for="especialidad">Especialidad :</label> 
+				<select th:field="*{especialidad}" class="form-control form-control-sm col-md-6" id="especialidad"> 
+					<option th:each="especialidad:${especialidades}"
+						th:value="${especialidad.id}"
+						th:text="${especialidad.nombre}"		
+					/>					
+				</select>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-md-2" for="codigocita">Codigo Cita</label> 
+				<input type="text"  th:field="*{codigocita}" class="form-control form-control-sm col-md-6" id="codigocita"
+					placeholder="Codigo del Paciente"> 
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('codigocita')}"
+						th:errors="*{cita.codigocita}">
+					</small>
+			</div>
+			
+			<div class="form-group row">
+				
+				<label class="col-md-2" for="nombrepaciente">Pacientes</label> 
+				<input type="text" th:field="*{nombrepaciente}" class="form-control form-control-sm col-md-6" id="nombrepaciente"
+					placeholder="Nombres del cliente"> 
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombrepaciente')}"
+						th:errors="*{cita.nombrepaciente}">
+					</small>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-md-2" for="dnipaciente">DNI:</label> 
+				<input type="text" th:field="*{dnipaciente}" class="form-control form-control-sm col-md-6" id="dnipaciente"
+					placeholder="Dni del Paciente"> 
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('dnipaciente')}"
+						th:errors="*{cita.dnipaciente}">
+					</small>
+			</div>
+			
+			
+			<div class="card-footer bg-dark">
+				<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+			</div>
+			
+		</form>
+		</div>
+	</div>
+
+	</div>
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+
+</body>
+</html>
